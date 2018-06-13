@@ -42,7 +42,7 @@
                     <encoding>UTF-8</encoding>
                     <compilerArguments>
                         <!--<extdirs>${basedir}/webapp/WEB-INF/lib</extdirs>-->
-                        <extdirs>${basedir}/src/main/webapp/WEB-INF/lib</extdirs>
+                        <!--<extdirs>${basedir}/src/main/webapp/WEB-INF/lib</extdirs>-->
                         <bootclasspath>${JAVA_HOME}/jre/lib/rt.jar;${JAVA_HOME}/jre/lib/jce.jar</bootclasspath>
                     </compilerArguments>
                 </configuration>
