@@ -49,7 +49,7 @@ public class QueFactory<T> {
 
     public ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("disruptor-pool-%d").build();
     private Executor pool = new ThreadPoolExecutor(10, 200, 5L, TimeUnit.MINUTES, new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
-    ;
+
     private QueEventFactory<T> factory;
     //必须是2的n次方
     //private int bufferSize = 4096;
