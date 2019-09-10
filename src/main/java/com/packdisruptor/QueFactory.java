@@ -1,16 +1,16 @@
 package com.packdisruptor;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.YieldingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * ------------------------------------------------------
@@ -90,7 +90,8 @@ public class QueFactory<T> {
         if(null == factory){
             this.getEventFactory();
         }
-        this.disruptor = new Disruptor<QueEvent<T>>(factory,bufferSize,pool, ProducerType.MULTI, new YieldingWaitStrategy());
+//        this.disruptor = new Disruptor<QueEvent<T>>(factory, bufferSize, pool, ProducerType.MULTI, new YieldingWaitStrategy());
+        this.disruptor = new Disruptor<>(factory, bufferSize, namedThreadFactory, ProducerType.MULTI, new YieldingWaitStrategy());
         this.disruptor.handleEventsWith(new QueEventHandle<T>(process));
         this.disruptor.start();
         this.disruptor.getRingBuffer();
@@ -102,7 +103,6 @@ public class QueFactory<T> {
 
     public QueEventProducer<T> createProducer(){
         RingBuffer<QueEvent<T>> ringBuffer = disruptor.getRingBuffer();
-        QueEventProducer<T> eventProducer = new QueEventProducer<T>(ringBuffer);
-        return eventProducer;
+        return new QueEventProducer<T>(ringBuffer);
     }
 }
